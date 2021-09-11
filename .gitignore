@@ -1,0 +1,7 @@
+.vscode/
+reduced_cnf_benchmarks/*
+testcase_sets/*
+src/.vscode/
+*_reduced.cnf
+*_testcase_set.txt
+LS-Sampling
