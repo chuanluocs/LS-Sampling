@@ -1,10 +1,11 @@
 #include "slstestcasesampler.h"
+#include <unistd.h>
 
 using namespace std;
 
 const int kMaxPbOCCSATSeed = 10000000;
 
-SLSTestcaseSampler::SLSTestcaseSampler(string cnf_file_path, int seed)
+SLSTestcaseSampler::SLSTestcaseSampler(string cnf_file_path, int seed): rnd_file_id_gen(getpid())
 {
     cnf_file_path_ = cnf_file_path;
     seed_ = seed;
@@ -47,7 +48,7 @@ void SLSTestcaseSampler::SetDefaultPara()
     string cnf_file_name = cnf_file_path_.substr(pos + 1);
     cnf_file_name.replace(cnf_file_name.find(".cnf"), 4, "");
 
-    reduced_cnf_file_path_ = "./" + cnf_file_name + "_reduced.cnf";
+    reduced_cnf_file_path_ = "/tmp/" + cnf_file_name + to_string(getpid()) + to_string(rnd_file_id_gen()) + "_reduced.cnf";
     testcase_set_save_path_ = "./" + cnf_file_name + "_testcase_set.txt";
 }
 
@@ -719,4 +720,11 @@ void SLSTestcaseSampler::Cal3TupleCoverage()
     cout << "c 3-tuple coverage: " << coverage_tuple_ << endl;
 
     delete cadical_solver;
+}
+
+void SLSTestcaseSampler::RemoveReducedCNFFile()
+{
+    string cmd = "rm " + reduced_cnf_file_path_;
+    
+    int return_val = system(cmd.c_str());
 }

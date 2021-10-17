@@ -215,5 +215,7 @@ int main(int argc, char **argv)
 			sls_sampler.Cal3TupleCoverage();
 		}
 
+	sls_sampler.RemoveReducedCNFFile();
+
 	return 0;
 }
