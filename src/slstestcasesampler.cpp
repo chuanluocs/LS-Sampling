@@ -48,6 +48,7 @@ void SLSTestcaseSampler::SetDefaultPara()
     string cnf_file_name = cnf_file_path_.substr(pos + 1);
     cnf_file_name.replace(cnf_file_name.find(".cnf"), 4, "");
 
+    flag_reduced_cnf_as_temp_ = true;
     reduced_cnf_file_path_ = "/tmp/" + cnf_file_name + to_string(getpid()) + to_string(rnd_file_id_gen()) + "_reduced.cnf";
     testcase_set_save_path_ = "./" + cnf_file_name + "_testcase_set.txt";
 }
@@ -517,6 +518,11 @@ void SLSTestcaseSampler::GenerateTestCaseSet()
     SaveTestcaseSet(testcase_set_save_path_);
 
     cout << "c " << t_wise_ << "-tuple number of generated testcase set: " << num_tuple_ << endl;
+
+    if (flag_use_cnf_reduction_ && flag_reduced_cnf_as_temp_)
+    {
+        RemoveReducedCNFFile();
+    }
 
     // if (t_wise_ == 2)
     // {

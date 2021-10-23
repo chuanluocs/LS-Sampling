@@ -15,8 +15,7 @@ public:
     void SetWeightedSamplingMethod(bool use_weighted_sampling);
     void SetContextAwareMethod(bool use_context_aware);
     void SetCNFReductionMethod(bool use_cnf_reduction);
-    inline void SetReducedCNFPath(std::string reduced_cnf_path) { reduced_cnf_file_path_ = reduced_cnf_path; }
-    void RemoveReducedCNFFile();
+    inline void SetReducedCNFPath(std::string reduced_cnf_path) { flag_reduced_cnf_as_temp_ = false; reduced_cnf_file_path_ = reduced_cnf_path; }
     inline void SetTestcaseSetSavePath(std::string testcase_set_path) { testcase_set_save_path_ = testcase_set_path; }
     
     void GenerateInitTestcase();
@@ -85,6 +84,7 @@ private:
     bool flag_use_weighted_sampling_;
     bool flag_use_context_aware_;
     bool flag_use_cnf_reduction_;
+    bool flag_reduced_cnf_as_temp_;
 
     std::mt19937_64 rnd_file_id_gen;
 
@@ -125,4 +125,6 @@ private:
 
     inline void EmptyFunRetVoid() {}
     inline void EmptyFunRetVoid(const std::vector<int>& init_solution) {}
+
+    void RemoveReducedCNFFile();
 };
