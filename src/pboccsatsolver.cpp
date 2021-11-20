@@ -113,7 +113,7 @@ void PbOCCSATSolver::set_var_flip_priority_ass_aware(const std::vector<double> &
 
 		if (ratio_c_v < 1.5)
 		{
-			para_prob_pac = 0.5;
+			para_prob_pac = 0.4;
 			para_prob_first_div = 0.1;
 		}
 		else if (ratio_c_v > 9.2 && ratio_c_v < 9.3)
